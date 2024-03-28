@@ -45,5 +45,56 @@
   const app = express();
   
   app.use(bodyParser.json());
+
+let todoList = [];
+
+app.get('/todos',(req,res)=>{
+  res.json(todoList);
+});
+
+app.get('/todos/:id',(req,res)=>{
+  const todo = todoList.find(t=> t.id === parseInt(req.params.id));
+  if(!todo){
+    res.status(404).send()
+  }
+  res.status(200).json(todo)
+});
+
+app.post('/todos',(req,res)=>{
+  const newTodo = {
+    id: Math.floor(Math.random()*1000000000000),
+    title: req.body.title,
+    description: req.body.description
+  };
   
-  module.exports = app;
+  todoList.push(newTodo);
+  res.status(201).json(newTodo)
+});
+
+app.put('/todos/:id',(req,res)=>{
+  const todoIndex = todoList.findIndex(t=> t.id === parseInt(req.params.id))
+  if (todoIndex === -1){
+    res.status(404).send();
+  }
+  todoList[todoIndex].title = req.body.title
+  todoList[todoIndex].description  = req.body.description
+  res.status(200).json(todoList[todoIndex]);
+});
+
+app.delete('/todos/:id',(req,res)=>{
+  const todoIndex = todoList.findIndex(t=> t.id === parseInt(req.params.id))
+  if(todoIndex === -1){
+    res.status(404).send();
+  }
+  todoList.splice(todoIndex,1);
+  res.status(200).send();
+});
+
+
+app.use((req,res)=>{
+  res.status(500).send("Some error has occured")
+})
+
+// app.listen(3000)
+  
+module.exports = app;
