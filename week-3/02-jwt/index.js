@@ -29,6 +29,7 @@ function signJwt (username, password)
     const signature = jwt.sign({
         username
     }, jwtPassword);
+    console.log("signature", signature);
 
     return signature;
 }
