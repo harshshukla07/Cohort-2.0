@@ -19,18 +19,28 @@ passwordSchema = zod.string().min(6);
  */
 function signJwt (username, password)
 {
+    // const usernameResponse = emailSchema.safeParse(username);
+    // const passwordResponse = passwordSchema.safeParse(password);
+    // if (!usernameResponse.success || !passwordResponse.success)
+    // {
+    //     return null;
+    // }
+
+    // const signature = jwt.sign({
+    //     username
+    // }, jwtPassword);
+    // console.log("signature", signature);
+
+    // return signature;
+
+
     const usernameResponse = emailSchema.safeParse(username);
     const passwordResponse = passwordSchema.safeParse(password);
-    if (!usernameResponse.success || !passwordResponse.success)
-    {
+    if(!usernameResponse.success || !passwordResponse.success) {
         return null;
     }
-
-    const signature = jwt.sign({
-        username
-    }, jwtPassword);
+    const signature = jwt.sign({username}, jwtPassword);
     console.log("signature", signature);
-
     return signature;
 }
 
@@ -44,15 +54,21 @@ function signJwt (username, password)
  */
 function verifyJwt (token)
 {
-    let ans = true;
-    try
-    {
+    // let ans = true;
+    // try
+    // {
+    //     jwt.verify(token, jwtPassword);
+    // } catch (e)
+    // {
+    //     ans = false;
+    // }
+    // return ans;
+    try{
         jwt.verify(token, jwtPassword);
-    } catch (e)
-    {
-        ans = false;
+        return true;
+    }catch(err){
+        return false;
     }
-    return ans;
 }
 
 /**
