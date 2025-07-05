@@ -48,7 +48,6 @@ app.put('/completed', async(req, res) =>
 {
     const createPayLoad = req.body;
     const parsedPayLoad = updateTodo.safeParse(createPayLoad);
-    console.log(parsedPayLoad);
     if (!parsedPayLoad.success)
     {
         res.status(411).json({
@@ -64,7 +63,7 @@ app.put('/completed', async(req, res) =>
         completed: parsedPayLoad.data.completed
         
     })
-        console.log(parsedPayLoad.data)
+       
     res.status(200).json({
         message: 'Todo updated successfully'
     });
