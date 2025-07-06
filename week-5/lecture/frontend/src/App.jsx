@@ -1,4 +1,5 @@
-import CreateTodo from "./components/CreateTodo"
+import {CreateTodo} from "./components/CreateTodo"
+import {Todos} from "./components/Todos"
 
 function App() {
   
@@ -6,6 +7,7 @@ function App() {
     <>
     <h1>My Todo App</h1>
     <CreateTodo />
+    <Todos />
     </>
   )
 }
