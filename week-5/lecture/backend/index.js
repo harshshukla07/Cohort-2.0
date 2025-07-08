@@ -1,9 +1,13 @@
 // create an express 
 const express = require('express');
+const cors = require('cors');
 const { createTodo,updateTodo } = require('./types');
 const { todo } = require('./db');
 const app = express();
 app.use(express.json());
+app.use(cors({
+    origin: 'http://localhost:5173' // Adjust this to your frontend's URL
+}));
 
 // create a post route to add a todo
 app.post('/todos', async (req, res) =>
